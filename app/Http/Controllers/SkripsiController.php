@@ -9,7 +9,7 @@ class SkripsiController extends Controller
 {
     public function getSkripsi()
     {
-        $data = Skripsi::with('mahasiswa')->where('status', 'Belum Disetujui')->get();
+        $data = Skripsi::with('mahasiswa')->get();
         return response()->json([
             'status' => true,
             'message' => 'Pengajuan Skripsi',
@@ -19,7 +19,7 @@ class SkripsiController extends Controller
 
     public function getSkripsiDetail($id)
     {
-        $data = Skripsi::with('mahasiswa')->where('status', 'Belum Disetujui')->find($id);
+        $data = Skripsi::with('mahasiswa')->find($id);
         return response()->json([
             'status' => true,
             'message' => 'Pengajuan Skripsi',
