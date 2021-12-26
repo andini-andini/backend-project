@@ -83,8 +83,7 @@ class AuthMahasiswaController extends Controller
             'kelas' => $request->kelas,
             'prodi' => $request->prodi,
             'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'password' => $request->password
+            'no_hp' => $request->no_hp
         ]);
 
         if ($data) {
