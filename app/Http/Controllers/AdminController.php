@@ -131,7 +131,7 @@ class AdminController extends Controller
     {
         $data = Sempro::with('mahasiswa')->find($id);
         $data->update([
-            'status' => 'Sudah Diverifikasi',
+            'status' => $request->status,
             'waktu' => $request->waktu,
             'tempat' => $request->tempat,
             'link' => $request->link,
