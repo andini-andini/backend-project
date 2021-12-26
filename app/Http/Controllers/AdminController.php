@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Mahasiswa;
 use App\Models\Sempro;
 use App\Models\Skripsi;
 use Illuminate\Http\Request;
@@ -79,6 +80,39 @@ class AdminController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Pengajuan Skripsi',
+            'data' => $data
+        ]);
+    }
+
+    public function getMahasiswa()
+    {
+        $data = Mahasiswa::get();
+        return response()->json([
+            'status' => true,
+            'message' => 'Mahasiswa',
+            'data' => $data
+        ]);
+    }
+
+    public function getMahasiswaDetail($id)
+    {
+        $data = Mahasiswa::find($id);
+        return response()->json([
+            'status' => true,
+            'message' => 'Pengajuan Sempro',
+            'data' => $data
+        ]);
+    }
+
+    public function updateMahasiswa(Request $request, $id)
+    {
+        $data = Mahasiswa::find($id);
+        $data->update([
+            'status' => $request->status
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Pengajuan Sempro',
             'data' => $data
         ]);
     }

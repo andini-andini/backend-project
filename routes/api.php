@@ -46,6 +46,9 @@ Route::group(['prefix' => 'admin'], function ($router) {
         Route::post('me', [AdminController::class, 'me']);
         Route::put('pengajuan/sempro/{id}', [AdminController::class, 'updateSempro']);
         Route::put('pengajuan/skripsi/{id}', [AdminController::class, 'updateSkripsi']);
+        Route::get('mahasiswa', [AdminController::class, 'getMahasiswa']);
+        Route::get('mahasiswa/{id}', [AdminController::class, 'getMahasiswaDetail']);
+        Route::put('mahasiswa/{id}', [AdminController::class, 'updateMahasiswa']);
         Route::get('pengajuan/sempro', [AdminController::class, 'getSempro']);
         Route::get('pengajuan/skripsi', [AdminController::class, 'getSkripsi']);
         Route::get('pengajuan/sempro/{id}', [AdminController::class, 'getSemproDetail']);
