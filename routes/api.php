@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthMahasiswaController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\SemproController;
@@ -31,8 +32,23 @@ Route::group(['prefix' => 'mahasiswa'], function ($router) {
         Route::post('pengajuan/skripsi', [PengajuanController::class, 'skripsi']);
         Route::get('pengajuan/sempro', [SemproController::class, 'getSempro']);
         Route::get('pengajuan/sempro/{id}', [SemproController::class, 'getSemproDetail']);
-        Route::get('pengajuan/sempro/{id}', [SemproController::class, 'getSemproDetail']);
         Route::get('pengajuan/skripsi', [SkripsiController::class, 'getSkripsi']);
         Route::get('pengajuan/skripsi/{id}', [SkripsiController::class, 'getSkripsiDetail']);
+    });
+});
+
+Route::group(['prefix' => 'admin'], function ($router) {
+    Route::post('login', [AdminController::class, 'login']);
+    Route::post('register', [AdminController::class, 'register']);
+
+    Route::group(['middleware' => ['auth:admin']], function ($router) {
+        Route::post('logout', [AdminController::class, 'logout']);
+        Route::post('me', [AdminController::class, 'me']);
+        Route::put('pengajuan/sempro/{id}', [AdminController::class, 'updateSempro']);
+        Route::put('pengajuan/skripsi/{id}', [AdminController::class, 'updateSkripsi']);
+        Route::get('pengajuan/sempro', [AdminController::class, 'getSempro']);
+        Route::get('pengajuan/skripsi', [AdminController::class, 'getSkripsi']);
+        Route::get('pengajuan/sempro/{id}', [AdminController::class, 'getSemproDetail']);
+        Route::get('pengajuan/skripsi/{id}', [AdminController::class, 'getSkripsiDetail']);
     });
 });
