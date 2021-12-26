@@ -1,4 +1,4 @@
-name: jadwal-sidang
+name: jadwal
 
 on:
   push:
@@ -18,17 +18,17 @@ jobs:
       - name: "Login to Dockerhub"
         uses: docker/login-action@v1
         with:
-          username: "adn13"
-          password: "87ab35fb-e1c0-461b-9362-82850a67bead"
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: "Build and push"
         run: |
           docker build -f Docker/dockerfile/app.Dockerfile -t app .
           docker build -f Docker/dockerfile/web_server.Dockerfile -t web_server .
-          docker tag app ${{ secrets.DOCKERHUB_USERNAME}}/jadwal-sidang
-          docker tag web_server ${{ secrets.DOCKERHUB_USERNAME}}/jadwal-sidang-web_server
-          docker push ${{ secrets.DOCKERHUB_USERNAME}}/jadwal-sidang
-          docker push ${{ secrets.DOCKERHUB_USERNAME}}/jadwal-sidang-web_server
+          docker tag app ${{ secrets.DOCKERHUB_USERNAME}}/jadwal
+          docker tag web_server ${{ secrets.DOCKERHUB_USERNAME}}/jadwal-web_server
+          docker push ${{ secrets.DOCKERHUB_USERNAME}}/jadwal
+          docker push ${{ secrets.DOCKERHUB_USERNAME}}/jadwal-web_server
       - name: "Write config"
         run: |
           mkdir ~/.oci
@@ -92,8 +92,8 @@ jobs:
           username: ubuntu
           key: ${{secrets.OCI_INSTANCE_KEY}}
           script: |
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/jadwal-sidang
-            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/jadwal-sidang-web_server
+            sudo docker pull adn13/jadwal
+            sudo docker pull adn13/jadwal-web_server
             sudo docker-compose up -d
             sudo docker exec app /bin/bash -c "php artisan key:generate"
             sudo docker exec app /bin/bash -c "echo 'DB_CONNECTION=${{ secrets.DB_CONNECTION }}' >> .env"
@@ -104,5 +104,5 @@ jobs:
             sudo docker exec app /bin/bash -c "echo 'DB_PASSWORD=${{ secrets.DB_PASSWORD }}' >> .env"
             sudo docker exec app /bin/bash -c "echo 'DB_REDIS=cache' >> .env"
             sudo docker exec app /bin/bash -c "php artisan migrate:fresh --seed"
-            sudo docker exec app /bin/bash -c "php artisan jwt:secret"
             sudo docker exec app /bin/bash -c "php artisan storage:link"
+            sudo docker exec app /bin/bash -c "php artisan jwt:secret"
