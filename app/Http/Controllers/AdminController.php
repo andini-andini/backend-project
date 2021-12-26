@@ -24,7 +24,11 @@ class AdminController extends Controller
                 if (!$token = auth('admin')->login($adm)) {
                     return response()->json(['error' => 'Unauthorized'], 401);
                 }
-                return $this->respondWithToken($token);
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login berhasil',
+                    'token' => $token
+                ], 200);
             }
             return response()->json([
                 'status' => false,

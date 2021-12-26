@@ -48,10 +48,10 @@ return [
             'driver' => 'jwt',
             'provider' => 'dosens',
         ],
-        // 'admin' => [
-        //     'driver' => 'jwt',
-        //     'provider' => 'admins',
-        // ],
+        'admin' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -83,6 +83,10 @@ return [
         'dosens' => [
             'driver' => 'eloquent',
             'model' => App\Models\Dosen::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
