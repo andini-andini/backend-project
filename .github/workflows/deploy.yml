@@ -18,8 +18,8 @@ jobs:
       - name: "Login to Dockerhub"
         uses: docker/login-action@v1
         with:
-          username: adn13
-          password: 077950d7-df38-4124-b2e0-adfab196de15
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: "Build and push"
         run: |
