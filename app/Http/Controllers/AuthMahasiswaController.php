@@ -21,7 +21,6 @@ class AuthMahasiswaController extends Controller
     public function login(Request $request)
     {
         $mhs = Mahasiswa::where('email', $request->email)->first();
-
         if ($mhs) {
             if ($mhs->status) {
                 if (Hash::check($request->password, $mhs->password)) {
@@ -39,7 +38,7 @@ class AuthMahasiswaController extends Controller
         }
         return response()->json([
             'status' => false,
-            'message' => 'Login gagal'
+            'message' => 'Email atau password gagal'
         ], 401);
     }
 
@@ -53,7 +52,7 @@ class AuthMahasiswaController extends Controller
             'prodi' => $request->prodi,
             'email' => $request->email,
             'no_hp' => $request->no_hp,
-            'password' => $request->password
+            'password' => $request->password,
         ]);
 
         if ($data) {
