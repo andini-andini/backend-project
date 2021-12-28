@@ -18,8 +18,8 @@ jobs:
       - name: "Login to Dockerhub"
         uses: docker/login-action@v1
         with:
-          username: "adn13"
-          password: "87ab35fb-e1c0-461b-9362-82850a67bead"
+          username: adn13
+          password: 87ab35fb-e1c0-461b-9362-82850a67bead
 
       - name: "Build and push"
         run: |
