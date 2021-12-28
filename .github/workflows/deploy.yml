@@ -18,17 +18,17 @@ jobs:
       - name: "Login to Dockerhub"
         uses: docker/login-action@v1
         with:
-          username: "${{ secrets.docker_username }}"
-          password: "${{ secrets.docker_token }}"
+          username: "adn13"
+          password: "87ab35fb-e1c0-461b-9362-82850a67bead"
 
       - name: "Build and push"
         run: |
           docker build -f Docker/dockerfile/app.Dockerfile -t app .
           docker build -f Docker/dockerfile/web_server.Dockerfile -t web_server .
-          docker tag app ${{ secrets.docker_username}}/jadwal
-          docker tag web_server ${{ secrets.docker_username}}/jadwal-web_server
-          docker push ${{ secrets.docker_username}}/jadwal
-          docker push ${{ secrets.docker_username}}/jadwal-web_server
+          docker tag app adn13/jadwal
+          docker tag web_server adn13/jadwal-web_server
+          docker push adn13/jadwal
+          docker push adn13/jadwal-web_server
       - name: "Write config"
         run: |
           mkdir ~/.oci
