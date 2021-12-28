@@ -25,10 +25,10 @@ jobs:
         run: |
           docker build -f Docker/dockerfile/app.Dockerfile -t app .
           docker build -f Docker/dockerfile/web_server.Dockerfile -t web_server .
-          docker tag app ${{secrets.USERNAME}}/jadwal
-          docker tag web_server ${{secrets.USERNAME}}/jadwal-web_server
-          docker push ${{secrets.USERNAME}}/jadwal
-          docker push ${{secrets.USERNAME}}/jadwal-web_server
+          docker tag app ${{secrets.DOCKER_USERNAME}}/jadwal
+          docker tag web_server ${{secrets.DOCKER_USERNAME}}/jadwal-web_server
+          docker push ${{secrets.DOCKER_USERNAME}}/jadwal
+          docker push ${{secrets.DOCKER_USERNAME}}/jadwal-web_server
       - name: "Write config"
         run: |
           mkdir ~/.oci
@@ -92,8 +92,8 @@ jobs:
           username: ubuntu
           key: ${{secrets.OCI_INSTANCE_KEY}}
           script: |
-            sudo docker pull ${{secrets.USERNAME}}/jadwal
-            sudo docker pull ${{secrets.USERNAME}}/jadwal-web_server
+            sudo docker pull ${{secrets.DOCKER_USERNAME}}/jadwal
+            sudo docker pull ${{secrets.DOCKER_USERNAME}}/jadwal-web_server
             sudo docker-compose up -d
             sudo docker exec app /bin/bash -c "php artisan key:generate"
             sudo docker exec app /bin/bash -c "echo 'DB_CONNECTION=${{secrets.DB_CONNECTION}}' >> .env"
